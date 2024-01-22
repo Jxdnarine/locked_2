@@ -2,7 +2,8 @@ import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 
-const OPENAI_API_KEY = "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";
+// ignore: constant_identifier_names
+const OPENAI_API_KEY = "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";
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -28,32 +29,34 @@ class _ChatPageState extends State<ChatPage> {
   final ChatUser _gptChatUser =
       ChatUser(id: '2', firstName: 'Your Personal', lastName: 'Companion');
 
-  List<ChatMessage> _messages = <ChatMessage>[];
-  List<ChatUser> _typingUsers = <ChatUser>[];
+  final List<ChatMessage> _messages = <ChatMessage>[];
+  final List<ChatUser> _typingUsers = <ChatUser>[];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 195, 0, 255),
+        backgroundColor: Color.fromARGB(255, 180, 67, 255),
         title: const Text(
-          'AI Mental Health Companion',
+          'Mindful Mate: AI Mental Health Companion',
           style: TextStyle(
               color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w900),
         ),
+        centerTitle: true,
       ),
       body: DashChat(
           currentUser: _currentUser,
           typingUsers: _typingUsers,
           messageOptions: const MessageOptions(
             currentUserContainerColor: Colors.black,
-            containerColor: Color.fromRGBO(217, 0, 255, 1),
+            containerColor: Color.fromRGBO(237, 135, 255, 1),
             textColor: Color.fromARGB(255, 0, 0, 0),
           ),
           onSend: (ChatMessage m) {
             getChatResponse(m);
           },
           messages: _messages),
+      backgroundColor: Color.fromARGB(255, 234, 209, 255),
     );
   }
 
@@ -62,7 +65,7 @@ class _ChatPageState extends State<ChatPage> {
       _messages.insert(0, m);
       _typingUsers.add(_gptChatUser);
     });
-    List<Messages> _messagesHistory = _messages.reversed.map((m) {
+    List<Messages> messagesHistory = _messages.reversed.map((m) {
       if (m.user == _currentUser) {
         return Messages(role: Role.user, content: m.text);
       } else {
@@ -71,7 +74,7 @@ class _ChatPageState extends State<ChatPage> {
     }).toList();
     final request = ChatCompleteText(
       model: GptTurbo0301ChatModel(),
-      messages: _messagesHistory,
+      messages: messagesHistory,
       maxToken: 200,
     );
     final response = await _openAI.onChatCompletion(request: request);
