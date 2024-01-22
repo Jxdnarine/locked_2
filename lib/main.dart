@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mindful Mate',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 106, 61, 185)),
         useMaterial3: true,
       ),
       home: const ChatPage(),
@@ -21,4 +22,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// bruh
